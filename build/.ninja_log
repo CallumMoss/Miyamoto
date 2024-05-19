@@ -1,9 +1,0 @@
-# ninja log v5
-41	263	7378269067037186	CMakeFiles/Miyamoto.dir/src/utils.cpp.obj	be00b1ccd5154909
-18	1374	7378269078100325	CMakeFiles/Miyamoto.dir/src/Main.cpp.obj	6c14fa558f1c1c62
-25	2344	7378269087818021	CMakeFiles/Miyamoto.dir/src/Position.cpp.obj	fe672f0e7f68e362
-75	3413	7378269098531589	_deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.obj	5bd17c88977f378e
-59	4139	7378269105805753	_deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.obj	93ebb8e326965c50
-9	4229	7378269106679447	CMakeFiles/Tests.dir/src/Tests/Tests.cpp.obj	bdb67ac24e01fb75
-50	10319	7378269167542339	_deps/googletest-build/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.obj	26e624ce773346f8
-67	24960	7378269313779506	_deps/googletest-build/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.obj	839c3ba14f9174f9
