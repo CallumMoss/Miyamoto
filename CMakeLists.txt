@@ -20,7 +20,7 @@ enable_testing()
 
 add_executable(
   Tests
-  src/Tests/Tests.cpp
+  src/tests/Tests.cpp
 )
 target_link_libraries(
   Tests
@@ -38,6 +38,11 @@ set(CMAKE_CXX_COMPILER "g++" CACHE STRING "" FORCE)
 
 file(GLOB_RECURSE MY_SOURCES "src/*.cpp")
 
+foreach(item ${MY_SOURCES}) # to remove Tests from being loaded twice
+  if(${item} MATCHES "src/tests/Tests.cpp")
+    list(REMOVE_ITEM MY_SOURCES ${item})
+  endif()
+endforeach()
 
 set(CMAKE_CXX_FLAGS_DEBUG "-O0 -Wall -Wextra -Wpedantic -ggdb" CACHE STRING "" FORCE)
 set(CMAKE_CXX_FLAGS_RELEASE "-O3  -march=native  -mtune=native" CACHE STRING "" FORCE)
