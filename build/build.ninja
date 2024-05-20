@@ -49,12 +49,26 @@ cmake_ninja_workdir = C$:/Users/callu/Desktop/Miyamoto/build/
 
 build cmake_object_order_depends_target_Tests: phony || cmake_object_order_depends_target_gtest cmake_object_order_depends_target_gtest_main
 
+build CMakeFiles/Tests.dir/src/Position.cpp.obj: CXX_COMPILER__Tests_unscanned_Debug C$:/Users/callu/Desktop/Miyamoto/src/Position.cpp || cmake_object_order_depends_target_Tests
+  DEP_FILE = CMakeFiles\Tests.dir\src\Position.cpp.obj.d
+  FLAGS = -O0 -Wall -Wextra -Wpedantic -ggdb -std=gnu++20
+  INCLUDES = -isystem C:/Users/callu/Desktop/Miyamoto/build/_deps/googletest-src/googletest/include -isystem C:/Users/callu/Desktop/Miyamoto/build/_deps/googletest-src/googletest
+  OBJECT_DIR = CMakeFiles\Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\Tests.dir\src
+
 build CMakeFiles/Tests.dir/src/tests/Tests.cpp.obj: CXX_COMPILER__Tests_unscanned_Debug C$:/Users/callu/Desktop/Miyamoto/src/tests/Tests.cpp || cmake_object_order_depends_target_Tests
   DEP_FILE = CMakeFiles\Tests.dir\src\tests\Tests.cpp.obj.d
   FLAGS = -O0 -Wall -Wextra -Wpedantic -ggdb -std=gnu++20
   INCLUDES = -isystem C:/Users/callu/Desktop/Miyamoto/build/_deps/googletest-src/googletest/include -isystem C:/Users/callu/Desktop/Miyamoto/build/_deps/googletest-src/googletest
   OBJECT_DIR = CMakeFiles\Tests.dir
   OBJECT_FILE_DIR = CMakeFiles\Tests.dir\src\tests
+
+build CMakeFiles/Tests.dir/src/utils.cpp.obj: CXX_COMPILER__Tests_unscanned_Debug C$:/Users/callu/Desktop/Miyamoto/src/utils.cpp || cmake_object_order_depends_target_Tests
+  DEP_FILE = CMakeFiles\Tests.dir\src\utils.cpp.obj.d
+  FLAGS = -O0 -Wall -Wextra -Wpedantic -ggdb -std=gnu++20
+  INCLUDES = -isystem C:/Users/callu/Desktop/Miyamoto/build/_deps/googletest-src/googletest/include -isystem C:/Users/callu/Desktop/Miyamoto/build/_deps/googletest-src/googletest
+  OBJECT_DIR = CMakeFiles\Tests.dir
+  OBJECT_FILE_DIR = CMakeFiles\Tests.dir\src
 
 
 # =============================================================================
@@ -64,7 +78,7 @@ build CMakeFiles/Tests.dir/src/tests/Tests.cpp.obj: CXX_COMPILER__Tests_unscanne
 #############################################
 # Link the executable Tests.exe
 
-build Tests.exe Tests[1]_tests.cmake | ${cmake_ninja_workdir}Tests[1]_tests.cmake: CXX_EXECUTABLE_LINKER__Tests_Debug CMakeFiles/Tests.dir/src/tests/Tests.cpp.obj | lib/libgtest_main.a lib/libgtest.a || lib/libgtest.a lib/libgtest_main.a
+build Tests.exe Tests[1]_tests.cmake | ${cmake_ninja_workdir}Tests[1]_tests.cmake: CXX_EXECUTABLE_LINKER__Tests_Debug CMakeFiles/Tests.dir/src/Position.cpp.obj CMakeFiles/Tests.dir/src/tests/Tests.cpp.obj CMakeFiles/Tests.dir/src/utils.cpp.obj | lib/libgtest_main.a lib/libgtest.a || lib/libgtest.a lib/libgtest_main.a
   FLAGS = -O0 -Wall -Wextra -Wpedantic -ggdb
   LINK_LIBRARIES = lib/libgtest_main.a  lib/libgtest.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Tests.dir

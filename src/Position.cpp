@@ -1,6 +1,3 @@
-#ifndef POSITION_CPP
-#define POSITION_CPP
-
 #include "Position.hpp"
 #include <vector>
 #include <sstream>
@@ -99,7 +96,7 @@ Position::Position(const std::string& fen) {
                 break;
             case 3: // which squares are being targetted with en passant
                 file_letter = word[0];
-                if (file_letter == '-') { en_passant_mask = NULL; break; }
+                if (file_letter == '-') { en_passant_mask = 0ULL; break; }
                 else if (file_letter == 'a') { file_number = 0; }
                 else if (file_letter == 'b') { file_number = 1; }
                 else if (file_letter == 'c') { file_number = 2; }
@@ -125,7 +122,7 @@ bool Position::piece_is_at_square(uint64_t board, int square) {
     return (board & (1ULL << square)) != 0;
 }
 
-    void Position::print_position() {
+void Position::print_position() {
     // white_pawns = pieces[Utils::PAWNS_INDEX] & colours[Utils::WHITE_PIECES_INDEX];
 
     char board[64] = {};
@@ -153,19 +150,19 @@ bool Position::piece_is_at_square(uint64_t board, int square) {
         else if (piece_is_at_square(pieces[Utils::PAWNS_INDEX] & colours[Utils::BLACK_PIECES_INDEX], i)) {
             board[i] = 'p';
         }
-        else if (piece_is_at_square(pieces[Utils::PAWNS_INDEX] & colours[Utils::BLACK_PIECES_INDEX], i)) {
+        else if (piece_is_at_square(pieces[Utils::KNIGHTS_INDEX] & colours[Utils::BLACK_PIECES_INDEX], i)) {
             board[i] = 'n';
         }
-        else if (piece_is_at_square(pieces[Utils::PAWNS_INDEX] & colours[Utils::BLACK_PIECES_INDEX], i)) {
+        else if (piece_is_at_square(pieces[Utils::BISHOPS_INDEX] & colours[Utils::BLACK_PIECES_INDEX], i)) {
             board[i] = 'b';
         }
-        else if (piece_is_at_square(pieces[Utils::PAWNS_INDEX] & colours[Utils::BLACK_PIECES_INDEX], i)) {
+        else if (piece_is_at_square(pieces[Utils::ROOKS_INDEX] & colours[Utils::BLACK_PIECES_INDEX], i)) {
             board[i] = 'r';
         }
-        else if (piece_is_at_square(pieces[Utils::PAWNS_INDEX] & colours[Utils::BLACK_PIECES_INDEX], i)) {
+        else if (piece_is_at_square(pieces[Utils::QUEENS_INDEX] & colours[Utils::BLACK_PIECES_INDEX], i)) {
             board[i] = 'q';
         }
-        else if (piece_is_at_square(pieces[Utils::PAWNS_INDEX] & colours[Utils::BLACK_PIECES_INDEX], i)) {
+        else if (piece_is_at_square(pieces[Utils::KINGS_INDEX] & colours[Utils::BLACK_PIECES_INDEX], i)) {
             board[i] = 'k';
         }
         else {
@@ -186,5 +183,3 @@ bool Position::piece_is_at_square(uint64_t board, int square) {
     std::cout << " | " + rank << 1 << std::endl << "  -------------------------------" << std::endl;
     std::cout << "   A   B   C   D   E   F   G   H  " << std::endl << std::endl;
 }
-
-#endif // #ifndef POSITION_CPP

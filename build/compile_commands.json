@@ -1,9 +1,21 @@
 [
 {
   "directory": "C:/Users/callu/Desktop/Miyamoto/build",
+  "command": "g++ -isystem C:/Users/callu/Desktop/Miyamoto/build/_deps/googletest-src/googletest/include -isystem C:/Users/callu/Desktop/Miyamoto/build/_deps/googletest-src/googletest -O0 -Wall -Wextra -Wpedantic -ggdb -std=gnu++20 -o CMakeFiles\\Tests.dir\\src\\Position.cpp.obj -c C:\\Users\\callu\\Desktop\\Miyamoto\\src\\Position.cpp",
+  "file": "C:\\Users\\callu\\Desktop\\Miyamoto\\src\\Position.cpp",
+  "output": "CMakeFiles\\Tests.dir\\src\\Position.cpp.obj"
+},
+{
+  "directory": "C:/Users/callu/Desktop/Miyamoto/build",
   "command": "g++ -isystem C:/Users/callu/Desktop/Miyamoto/build/_deps/googletest-src/googletest/include -isystem C:/Users/callu/Desktop/Miyamoto/build/_deps/googletest-src/googletest -O0 -Wall -Wextra -Wpedantic -ggdb -std=gnu++20 -o CMakeFiles\\Tests.dir\\src\\tests\\Tests.cpp.obj -c C:\\Users\\callu\\Desktop\\Miyamoto\\src\\tests\\Tests.cpp",
   "file": "C:\\Users\\callu\\Desktop\\Miyamoto\\src\\tests\\Tests.cpp",
   "output": "CMakeFiles\\Tests.dir\\src\\tests\\Tests.cpp.obj"
+},
+{
+  "directory": "C:/Users/callu/Desktop/Miyamoto/build",
+  "command": "g++ -isystem C:/Users/callu/Desktop/Miyamoto/build/_deps/googletest-src/googletest/include -isystem C:/Users/callu/Desktop/Miyamoto/build/_deps/googletest-src/googletest -O0 -Wall -Wextra -Wpedantic -ggdb -std=gnu++20 -o CMakeFiles\\Tests.dir\\src\\utils.cpp.obj -c C:\\Users\\callu\\Desktop\\Miyamoto\\src\\utils.cpp",
+  "file": "C:\\Users\\callu\\Desktop\\Miyamoto\\src\\utils.cpp",
+  "output": "CMakeFiles\\Tests.dir\\src\\utils.cpp.obj"
 },
 {
   "directory": "C:/Users/callu/Desktop/Miyamoto/build",

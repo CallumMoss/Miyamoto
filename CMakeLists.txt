@@ -7,6 +7,21 @@ set(CXX_STANDARD_REQUIRED ON CACHE BOOL "" FORCE)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON CACHE BOOL "" FORCE)
 
+file(GLOB_RECURSE MY_SOURCES "src/*.cpp")
+
+foreach(item ${MY_SOURCES}) # to remove Tests from being loaded twice
+  if(${item} MATCHES "src/tests/Tests.cpp")
+    list(REMOVE_ITEM MY_SOURCES ${item})
+  endif()
+endforeach()
+
+file (GLOB_RECURSE MY_SOURCES_NO_MIYAMOTO "src/*.cpp")
+foreach(item ${MY_SOURCES_NO_MIYAMOTO}) # to remove Tests from being loaded twice
+  if(${item} MATCHES "src/Main.cpp")
+    list(REMOVE_ITEM MY_SOURCES_NO_MIYAMOTO ${item})
+  endif()
+endforeach()
+
 # Including GoogleTest as a dependency
 include(FetchContent)
 FetchContent_Declare(
@@ -20,7 +35,7 @@ enable_testing()
 
 add_executable(
   Tests
-  src/tests/Tests.cpp
+  ${MY_SOURCES_NO_MIYAMOTO}
 )
 target_link_libraries(
   Tests
@@ -34,15 +49,6 @@ gtest_discover_tests(Tests)
 set(CACHE CMAKE_VERBOSE_MAKEFILE TRUE CACHE BOOL "" FORCE)
 
 set(CMAKE_CXX_COMPILER "g++" CACHE STRING "" FORCE)
-
-
-file(GLOB_RECURSE MY_SOURCES "src/*.cpp")
-
-foreach(item ${MY_SOURCES}) # to remove Tests from being loaded twice
-  if(${item} MATCHES "src/tests/Tests.cpp")
-    list(REMOVE_ITEM MY_SOURCES ${item})
-  endif()
-endforeach()
 
 set(CMAKE_CXX_FLAGS_DEBUG "-O0 -Wall -Wextra -Wpedantic -ggdb" CACHE STRING "" FORCE)
 set(CMAKE_CXX_FLAGS_RELEASE "-O3  -march=native  -mtune=native" CACHE STRING "" FORCE)
