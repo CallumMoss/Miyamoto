@@ -1,10 +1,53 @@
 #include <gtest/gtest.h>
 #include "../Position.hpp"
 
-// Test if initial values are right, then check FEN values of various attributesTEST(HelloTest, BasicAssertions)
-TEST(FEN_And_Pos_Rep, BasicsTest2) {
-  Position pos = Position("r3k2r/2pb1ppp/2pp1q2/p7/1nP1B3/1P2P3/P2N1PPP/R2QK2R w KQkq a6 0 14");
+// Testing getters and FEN parser.
+TEST(FEN_And_Pos_Rep, InitialPosition) {
+  Position pos = Position();
+  EXPECT_TRUE(pos.wscr()) << "Expected white to have short castling rights, but it did not.";
+  EXPECT_TRUE(pos.wlcr()) << "Expected white to have long castling rights, but it did not.";
+  EXPECT_TRUE(pos.bscr()) << "Expected black to have short castling rights, but it did not.";
+  EXPECT_TRUE(pos.blcr()) << "Expected black to have long castling rights, but it did not.";
+
+  EXPECT_EQ(pos.get_pawns(), 0xff00000000ff00ULL) << "Pawns are not in the expected position.";
+	EXPECT_EQ(pos.get_knights(), 0x4200000000000042ULL) << "Knights are not in the expected position.";
+	EXPECT_EQ(pos.get_bishops(), 0x2400000000000024ULL) << "Bishops are not in the expected position.";
+	EXPECT_EQ(pos.get_rooks(), 0x8100000000000081ULL) << "Rooks are not in the expected position.";
+	EXPECT_EQ(pos.get_queens(), 0x800000000000008ULL) << "Queens are not in the expected position.";
+	EXPECT_EQ(pos.get_kings(), 0x1000000000000010ULL) << "Kings are not in the expected position.";
+
+  EXPECT_EQ(pos.get_white_pawns(), 0xff00ULL) << "The white pawns are not in the expected position.";
+	EXPECT_EQ(pos.get_black_pawns(), 0xff000000000000ULL) << "The black pawns are not in the expected position.";
+  EXPECT_EQ(pos.get_white_knights(), 0x42ULL) << "The white knights are not in the expected position.";
+	EXPECT_EQ(pos.get_black_knights(), 0x4200000000000000ULL) << "The black knights are not in the expected position.";
+  EXPECT_EQ(pos.get_white_bishops(), 0x24ULL) << "The white bishops are not in the expected position.";
+	EXPECT_EQ(pos.get_black_bishops(), 0x2400000000000000ULL) << "The black bishops are not in the expected position.";
+  EXPECT_EQ(pos.get_white_rooks(), 0x81ULL) << "The white rooks are not in the expected position.";
+	EXPECT_EQ(pos.get_black_rooks(), 0x8100000000000000ULL) << "The black rooks are not in the expected position.";
+  EXPECT_EQ(pos.get_white_queen(), 0x8ULL) << "The white queen is not in the expected position.";
+	EXPECT_EQ(pos.get_black_queen(), 0x800000000000000ULL) << "The black queen is not in the expected position.";
+  EXPECT_EQ(pos.get_white_king(), 0x10ULL) << "The white king is not in the expected position.";
+	EXPECT_EQ(pos.get_black_king(), 0x1000000000000000ULL) << "The black king is not in the expected position.";
+
+  EXPECT_EQ(pos.get_white_pieces(), 0xffffULL) << "The white pieces are not in the expected position.";
+	EXPECT_EQ(pos.get_black_pieces(), 0xffff000000000000ULL) << "The black pieces are not in the expected position.";
+  EXPECT_EQ(pos.get_board(), 0xffff00000000ffffULL) << "The pieces are not in the expected position.";
+
+	EXPECT_EQ(pos.get_turn(), Turn::WHITE) << "Expected it to be white's turn, but it is not.";
+	EXPECT_EQ(pos.get_en_passant_mask(), 0ULL) << "Expected no en passant posibility, but there is.";
+	EXPECT_EQ(pos.get_half_move_clock(), 0) << "Expected the half move clock to be 0, but it is not.";
+	EXPECT_EQ(pos.get_full_move_counter(), 1) << "Expected the full move clock to be 1, but it is not.";
+
   pos.print_position();
+  pos.print_board(pos.board_to_char_array(pos.get_black_knights()));
+}
+
+TEST(FEN_And_Pos_Rep, Position1) {
+  Position pos = Position("r3k2r/2pb1ppp/2pp1q2/p7/1nP1B3/1P2P3/P2N1PPP/R2QK2R w KQkq a6 0 14");
+  EXPECT_TRUE(pos.wscr()) << "Expected white to have short castling rights, but it did not.";
+  EXPECT_TRUE(pos.wlcr()) << "Expected white to have long castling rights, but it did not.";
+  EXPECT_TRUE(pos.bscr()) << "Expected black to have short castling rights, but it did not.";
+  EXPECT_TRUE(pos.blcr()) << "Expected black to have long castling rights, but it did not.";
 }
 
 int main(int argc, char **argv) {

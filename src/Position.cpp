@@ -45,18 +45,18 @@ Position::Position(const std::string& fen) {
                 // Bit boards are all 0s, by using or, the 1 is added in.
                 // Need to use or instead of equals as after the first pawn is detected,
                 // square wont remember where the 1 was originally for the first pawn
-                case 'P': pieces[Utils::PAWNS_INDEX] |= square; colours[Utils::WHITE_PIECES_INDEX] |= square; break;
-                case 'N': pieces[Utils::KNIGHTS_INDEX] |= square; colours[Utils::WHITE_PIECES_INDEX] |= square; break;
-                case 'B': pieces[Utils::BISHOPS_INDEX] |= square; colours[Utils::WHITE_PIECES_INDEX] |= square; break;
-                case 'R': pieces[Utils::ROOKS_INDEX] |= square; colours[Utils::WHITE_PIECES_INDEX] |= square; break;
-                case 'Q': pieces[Utils::QUEENS_INDEX] |= square; colours[Utils::WHITE_PIECES_INDEX] |= square; break;
-                case 'K': pieces[Utils::KINGS_INDEX] |= square; colours[Utils::WHITE_PIECES_INDEX] |= square; break;
-                case 'p': pieces[Utils::PAWNS_INDEX] |= square; colours[Utils::BLACK_PIECES_INDEX] |= square; break;
-                case 'n': pieces[Utils::KNIGHTS_INDEX] |= square; colours[Utils::BLACK_PIECES_INDEX] |= square; break;
-                case 'b': pieces[Utils::BISHOPS_INDEX] |= square; colours[Utils::BLACK_PIECES_INDEX] |= square; break;
-                case 'r': pieces[Utils::ROOKS_INDEX] |= square; colours[Utils::BLACK_PIECES_INDEX] |= square; break;
-                case 'q': pieces[Utils::QUEENS_INDEX] |= square; colours[Utils::BLACK_PIECES_INDEX] |= square; break;
-                case 'k': pieces[Utils::KINGS_INDEX] |= square; colours[Utils::BLACK_PIECES_INDEX] |= square; break;
+                case 'P': pieces[0] |= square; colours[0] |= square; break;
+                case 'N': pieces[1] |= square; colours[0] |= square; break;
+                case 'B': pieces[2] |= square; colours[0] |= square; break;
+                case 'R': pieces[3] |= square; colours[0] |= square; break;
+                case 'Q': pieces[4] |= square; colours[0] |= square; break;
+                case 'K': pieces[5] |= square; colours[0] |= square; break;
+                case 'p': pieces[0] |= square; colours[1] |= square; break;
+                case 'n': pieces[1] |= square; colours[1] |= square; break;
+                case 'b': pieces[2] |= square; colours[1] |= square; break;
+                case 'r': pieces[3] |= square; colours[1] |= square; break;
+                case 'q': pieces[4] |= square; colours[1] |= square; break;
+                case 'k': pieces[5] |= square; colours[1] |= square; break;
             }
             file++;
         }
@@ -123,58 +123,40 @@ bool Position::piece_is_at_square(uint64_t board, int square) {
 }
 
 void Position::print_position() {
-    // white_pawns = pieces[Utils::PAWNS_INDEX] & colours[Utils::WHITE_PIECES_INDEX];
-
-    char board[64] = {};
-
+    std::array<char, 64> board;
+    // Get letter values for all pieces in the position/
     for (int i = 0; i < 64; i++) {
-        //if(board[i].isUpper())
-        if (piece_is_at_square(pieces[Utils::PAWNS_INDEX] & colours[Utils::WHITE_PIECES_INDEX], i)){
-           board[i] = 'P';
-        }
-        else if (piece_is_at_square(pieces[Utils::KNIGHTS_INDEX] & colours[Utils::WHITE_PIECES_INDEX], i)) {
-            board[i] = 'N';
-        }
-        else if (piece_is_at_square(pieces[Utils::BISHOPS_INDEX] & colours[Utils::WHITE_PIECES_INDEX], i)) {
-            board[i] = 'B';
-        }
-        else if (piece_is_at_square(pieces[Utils::ROOKS_INDEX] & colours[Utils::WHITE_PIECES_INDEX], i)) {
-            board[i] = 'R';
-        }
-        else if (piece_is_at_square(pieces[Utils::QUEENS_INDEX] & colours[Utils::WHITE_PIECES_INDEX], i)) {
-            board[i] = 'Q';
-        }
-        else if (piece_is_at_square(pieces[Utils::KINGS_INDEX] & colours[Utils::WHITE_PIECES_INDEX], i)) {
-            board[i] = 'K';
-        }
-        else if (piece_is_at_square(pieces[Utils::PAWNS_INDEX] & colours[Utils::BLACK_PIECES_INDEX], i)) {
-            board[i] = 'p';
-        }
-        else if (piece_is_at_square(pieces[Utils::KNIGHTS_INDEX] & colours[Utils::BLACK_PIECES_INDEX], i)) {
-            board[i] = 'n';
-        }
-        else if (piece_is_at_square(pieces[Utils::BISHOPS_INDEX] & colours[Utils::BLACK_PIECES_INDEX], i)) {
-            board[i] = 'b';
-        }
-        else if (piece_is_at_square(pieces[Utils::ROOKS_INDEX] & colours[Utils::BLACK_PIECES_INDEX], i)) {
-            board[i] = 'r';
-        }
-        else if (piece_is_at_square(pieces[Utils::QUEENS_INDEX] & colours[Utils::BLACK_PIECES_INDEX], i)) {
-            board[i] = 'q';
-        }
-        else if (piece_is_at_square(pieces[Utils::KINGS_INDEX] & colours[Utils::BLACK_PIECES_INDEX], i)) {
-            board[i] = 'k';
-        }
-        else {
-            board[i] = ' ';
-        }
+        if (piece_is_at_square(get_white_pawns(), i)) { board[i] = 'P'; }
+        else if (piece_is_at_square(get_white_knights(), i)) { board[i] = 'N'; }
+        else if (piece_is_at_square(get_white_bishops(), i)) { board[i] = 'B'; }
+        else if (piece_is_at_square(get_white_rooks(), i)) { board[i] = 'R'; }
+        else if (piece_is_at_square(get_white_queen(), i)) { board[i] = 'Q'; }
+        else if (piece_is_at_square(get_white_king(), i)) { board[i] = 'K'; }
+        else if (piece_is_at_square(get_black_pawns(), i)) { board[i] = 'p'; }
+        else if (piece_is_at_square(get_black_knights(), i)) { board[i] = 'n'; }
+        else if (piece_is_at_square(get_black_bishops(), i)) { board[i] = 'b';}
+        else if (piece_is_at_square(get_black_rooks(), i)) { board[i] = 'r'; }
+        else if (piece_is_at_square(get_black_queen(), i)) { board[i] = 'q'; }
+        else if (piece_is_at_square(get_black_king(), i)) { board[i] = 'k'; }
+        else { board[i] = ' '; }
     }
+    print_board(board);
+}
 
-    // print board
+std::array<char, 64> Position::board_to_char_array(u64 board) {
+    std::array<char, 64> char_array;
+    for (int i = 0; i < 64; i++) {
+        if (piece_is_at_square(board, i)) { char_array[i] = '0'; }
+        else { char_array[i] = '+'; }
+    }
+    return char_array;
+}
+void Position::print_board(std::array<char, 64> board) {
+    // Can be used in conjunction with board_to_char_array to print a given board.
     std::string rank = "";
     std::cout << "  -------------------------------" << std::endl;
-    for (int j = 64; j > 0; j--) { // do i need new variables?
-        if (j % 8 == 0 && j != 64) {
+    for(int j = 64; j > 0; j--) {
+        if(j % 8 == 0 && j != 64) {
             std::cout << " | " + rank << (j/8) + 1 << std::endl << "  -------------------------------" << std::endl;
             rank = "";
         }
@@ -183,3 +165,45 @@ void Position::print_position() {
     std::cout << " | " + rank << 1 << std::endl << "  -------------------------------" << std::endl;
     std::cout << "   A   B   C   D   E   F   G   H  " << std::endl << std::endl;
 }
+
+std::array<u64, 6> Position::get_pieces() { return pieces; }
+std::array<u64, 2> Position::get_colours() { return colours; }
+u64 Position::get_en_passant_mask() { return en_passant_mask; }
+int Position::get_half_move_clock() { return half_move_clock; }
+int Position::get_full_move_counter() { return full_move_counter; }
+u8 Position::get_castling_rights() { return castling_rights; }
+Turn Position::get_turn() { return turn; }
+
+u64 Position::get_pawns() { return pieces[0]; }
+u64 Position::get_white_pawns() { return pieces[0] & colours[0]; }
+u64 Position::get_black_pawns() { return pieces[0] & colours[1]; }
+
+u64 Position::get_knights() { return pieces[1]; }
+u64 Position::get_white_knights() { return pieces[1] & colours[0]; }
+u64 Position::get_black_knights() { return pieces[1] & colours[1]; }
+
+u64 Position::get_bishops() { return pieces[2];}
+u64 Position::get_white_bishops() { return pieces[2] & colours[0]; }
+u64 Position::get_black_bishops() { return pieces[2] & colours[1]; }
+
+u64 Position::get_rooks() { return pieces[3]; }
+u64 Position::get_white_rooks() { return pieces[3] & colours[0]; }
+u64 Position::get_black_rooks() { return pieces[3] & colours[1]; }
+
+u64 Position::get_queens() { return pieces[4];}
+u64 Position::get_white_queen() { return pieces[4] & colours[0]; }
+u64 Position::get_black_queen() { return pieces[4] & colours[1]; }
+
+u64 Position::get_kings() { return pieces[5]; }
+u64 Position::get_white_king() { return pieces[5] & colours[0]; }
+u64 Position::get_black_king() { return pieces[5] & colours[1]; }
+
+u64 Position::get_white_pieces() { return colours[0]; } 
+u64 Position::get_black_pieces() { return colours[1]; } 
+
+u64 Position::get_board() { return colours[0] | colours[1]; }
+
+bool Position::wscr() { return castling_rights & 1; }
+bool Position::wlcr() { return castling_rights & (1 << 1); }
+bool Position::bscr() { return castling_rights & (1 << 2); }
+bool Position::blcr() { return castling_rights & (1 << 3); }
