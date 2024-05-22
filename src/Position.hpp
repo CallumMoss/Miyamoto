@@ -20,7 +20,7 @@ class Position { // Game state class
 
         std::array<u64, 6> get_pieces();
         std::array<u64, 2> get_colours();
-        u64 get_en_passant_mask();
+        u64 get_en_passant_target();
         int get_half_move_clock();
         int get_full_move_counter();
         u8 get_castling_rights();
@@ -56,16 +56,16 @@ class Position { // Game state class
         u64 get_board();
 
 
-        bool wscr(); // returns true if white has short castling rights
-        bool wlcr();
-        bool bscr();
-        bool blcr();
+        bool get_wscr(); // returns true if white has short castling rights
+        bool get_wlcr();
+        bool get_bscr();
+        bool get_blcr();
         
     private:
         // Piece-centric bitboards for storing the position of the pieces by types and colour
         std::array<u64, 6> pieces;
         std::array<u64, 2> colours;
-		u64 en_passant_mask;
+		u64 en_passant_target;
         int half_move_clock; // number of half moves, to test for 50 move rule
 		int full_move_counter; // how many moves have been played
         u8 castling_rights; // XXXX-BL-BS-WL-WS, last 4 bits, 0 if cannot castle

@@ -13,7 +13,7 @@ Position::Position(const std::string& fen) {
     }
 		turn = Turn::WHITE; // 0 for white, 1 for black
         castling_rights = 0b0; // XXXX-BL-BS-WL-WS, last 4 bits, 0 if cannot castle
-		en_passant_mask = 0b0;
+		en_passant_target = 0ULL;
 	    half_move_clock = 0; // number of half moves, to test for 50 move rule
 		full_move_counter = 0; // how many moves have been played
 
@@ -96,7 +96,7 @@ Position::Position(const std::string& fen) {
                 break;
             case 3: // which squares are being targetted with en passant
                 file_letter = word[0];
-                if (file_letter == '-') { en_passant_mask = 0ULL; break; }
+                if (file_letter == '-') { en_passant_target = 0ULL; break; }
                 else if (file_letter == 'a') { file_number = 0; }
                 else if (file_letter == 'b') { file_number = 1; }
                 else if (file_letter == 'c') { file_number = 2; }
@@ -106,7 +106,7 @@ Position::Position(const std::string& fen) {
                 else if (file_letter == 'g') { file_number = 6; }
                 else { file_number = 7; } // if == 'h'
 
-                en_passant_mask = 1ULL << ((word[1] - 1) * 8 + file_number);
+                en_passant_target = 1ULL << ((word[1] - 1) * 8 + file_number);
                 break;
             case 4: // how many half moves have been played
                 half_move_clock = std::stoi(word); // string to integer
@@ -168,7 +168,7 @@ void Position::print_board(std::array<char, 64> board) {
 
 std::array<u64, 6> Position::get_pieces() { return pieces; }
 std::array<u64, 2> Position::get_colours() { return colours; }
-u64 Position::get_en_passant_mask() { return en_passant_mask; }
+u64 Position::get_en_passant_target() { return en_passant_target; }
 int Position::get_half_move_clock() { return half_move_clock; }
 int Position::get_full_move_counter() { return full_move_counter; }
 u8 Position::get_castling_rights() { return castling_rights; }
@@ -203,7 +203,7 @@ u64 Position::get_black_pieces() { return colours[1]; }
 
 u64 Position::get_board() { return colours[0] | colours[1]; }
 
-bool Position::wscr() { return castling_rights & 1; }
-bool Position::wlcr() { return castling_rights & (1 << 1); }
-bool Position::bscr() { return castling_rights & (1 << 2); }
-bool Position::blcr() { return castling_rights & (1 << 3); }
+bool Position::get_wscr() { return castling_rights & 1; }
+bool Position::get_wlcr() { return castling_rights & (1 << 1); }
+bool Position::get_bscr() { return castling_rights & (1 << 2); }
+bool Position::get_blcr() { return castling_rights & (1 << 3); }
